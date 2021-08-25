@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  questionnaireapi:
+    image: ${DOCKER_REGISTRY-}questionnaire
+    build:
+      context: .
+      dockerfile: Questionnaire.API/Dockerfile
+
+  questionnairedb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    
+  questionnairedb-ui:
+    build:
+      context: ./Web/quesionnaire-web
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: questionnairedb-ui
+    volumes:
+      - ./my-app:/usr/src/app/my-app
+      - /usr/src/app/my-app/node_modules

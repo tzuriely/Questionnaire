@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  questionnaireapi:
+    container_name: questionnaireapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:QuestionnaireConnectionString=Server=questionnairedb;Database=QuestionnaireDb;User Id=sa;Password=ABC123abc"
+    depends_on:
+        - questionnairedb
+    ports:
+      - "8081:80"
+
+  questionnairedb:
+    container_name: questionnairedb
+    environment:
+        SA_PASSWORD: "ABC123abc"
+        ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+        - "1433:1433"
